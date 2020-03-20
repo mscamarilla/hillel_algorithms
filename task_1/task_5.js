@@ -4,13 +4,28 @@ sqrt(4); // 2;
 sqrt(25); // 5;
 sqrt(163); //  12.7671453
 
+
 function sqrt(k) {
-    let c = k / 2;
-    for (let i = 0; i < 20; i++) {
-        let b = k / c;
-        c = (b + c) / 2;
+    let l = 0;
+    let r = k;
+    let res;
+
+
+    while (l <= r) {
+        let m = (l + r) / 2;
+
+        if (k - (m * m) < 1e-6) {
+            res = m.toFixed(7);
+        }
+
+        if (m * m < k) {
+            l = m + 1e-6;
+        } else {
+            r = m - 1e-6;
+        }
+
     }
 
-    console.log(c.toFixed(7));
+    console.log(res);
 
 }
