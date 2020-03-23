@@ -9,19 +9,20 @@ function sqrt(k) {
     let l = 0;
     let r = k;
     let res;
+    let eps = 1e-6;
 
 
     while (l <= r) {
         let m = (l + r) / 2;
 
-        if (k - (m * m) < 1e-6) {
+        if (k - (m * m) < eps) {
             res = m.toFixed(7);
         }
 
         if (m * m < k) {
-            l = m + 1e-6;
+            l = m + eps;
         } else {
-            r = m - 1e-6;
+            r = m - eps;
         }
 
     }

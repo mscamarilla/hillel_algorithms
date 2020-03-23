@@ -1,30 +1,39 @@
 //1.Написать функцию, которая определяет является ли число простым. (1 бал)
-isPrime(25); // false;
-isPrime(2); // true;
-isPrime(1); // false;
-isPrime(13); // true;
-isPrime(97); // true;
-isPrime(1000000007); // true;
-isPrime(1000000011); // false;
 
 function isPrime(n) {
-    let res;
-
-    if (n == 1) {
-        res = n + ' - false';
-    }
 
     if (n == 2) {
-        res = n + ' - true';
+        return n + ' - true';
     }
 
-    for (let i = 3; i <= Math.sqrt(n); i += 2) {
-        if (n % i === 0) {
-            res = n + ' - false';
-        } else {
-            res = n + ' - true';
+    if (n == 1 || n % 2 === 0) {
+        return n + ' - false';
+    }
+
+    let i = 3;
+
+    while (i <= n) {
+        if (n % Math.sqrt(n) === 0) {
+            return n + ' - false';
         }
+        if (n != i && n % i === 0) {
+            return n + ' - false';
+        } else {
+            return n + ' - true';
+        }
+
+        i += 2;
     }
 
-    console.log(res);
 };
+
+console.log(isPrime(3)); // true;
+console.log(isPrime(5)); // true;
+console.log(isPrime(20)); // false;
+console.log(isPrime(25)); // false;
+console.log(isPrime(2)); // true;
+console.log(isPrime(1)); // false;
+console.log(isPrime(13)); // true;
+console.log(isPrime(97)); // true;
+console.log(isPrime(1000000007)); // true;
+console.log(isPrime(1000000011)); // false;
