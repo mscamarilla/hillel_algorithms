@@ -11,6 +11,8 @@ count(arr, 1000, 2000); // 5   (подходят элементы 1099, 1200, 12
 count(arr, 84, 84); // 1   (подходит элемент 84)
 count(arr, 1202, 2000); // 2   (подходят элементы 1202, 2000)
 count(arr, 85, 85); // 0   (в этом промежутке нет искомых чисел)
+count(arr, 0, 2001); // 0   (в этом промежутке нет искомых чисел)
+
 //O(n)
 function count1(arr, l, r) {
 
@@ -31,6 +33,7 @@ function count(arr, left, right) {
     let r = arr.length - 1;
     let leftIndex;
     let rightIndex;
+    let result = 0;
 
     while (l <= r) {
         let m = Math.floor((l + r) / 2);
@@ -55,7 +58,7 @@ function count(arr, left, right) {
 
         if (arr[m] >= right) {
             rightIndex = m;
-            if(arr[m] == right){
+            if (arr[m] == right) {
                 rightIndex = m + 1;
             }
         }
@@ -68,9 +71,11 @@ function count(arr, left, right) {
 
     }
 
-    let result = rightIndex-leftIndex;
+    if (rightIndex) {
+        result = rightIndex - leftIndex;
+    }
 
-    if(left == right && arr.indexOf(left) !==-1){
+    if (left == right && arr.indexOf(left) !== -1) {
         result = 1;
     }
 

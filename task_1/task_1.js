@@ -10,23 +10,16 @@ function isPrime(n) {
         return n + ' - false';
     }
 
-    let i = 3;
-
-    while (i <= n) {
-        if (n % Math.sqrt(n) === 0) {
+    for (let i = 2; i <= Math.sqrt(n); i++) {
+        if (n % i == 0) {
             return n + ' - false';
         }
-        if (n != i && n % i === 0) {
-            return n + ' - false';
-        } else {
-            return n + ' - true';
-        }
-
-        i += 2;
     }
 
-};
+    return n + ' - true';
 
+};
+console.log(isPrime(391)); // false;
 console.log(isPrime(3)); // true;
 console.log(isPrime(5)); // true;
 console.log(isPrime(20)); // false;
