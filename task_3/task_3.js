@@ -8,10 +8,8 @@ let arr = ['5', '10', '123', '1', '12345', '432', '1111','1111111111111111111', 
 
 function compare(arr){
     arr.sort((a, b) => {
-        let digits_a = String(a).slice('');
-        let digits_b = String(b).slice('');
 
-        if(digits_a.length === digits_b.length){
+        if(a.length === b.length){
             return a.localeCompare(b);
         } else {
             return a - b;

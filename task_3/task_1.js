@@ -19,7 +19,7 @@ function count(n, step = 0) {
 
         }
 
-        if (n < 11) {
+        if (n < 10) {
             return step;
         } else {
             return count(n-sum, step);
