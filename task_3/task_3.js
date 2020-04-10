@@ -12,7 +12,7 @@ function compare(arr){
         if(a.length === b.length){
             return a.localeCompare(b);
         } else {
-            return a - b;
+            return a.length - b.length;
         }
     });
 
