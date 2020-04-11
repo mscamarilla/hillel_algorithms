@@ -61,34 +61,32 @@ class Stack {
 };
 
 function solve(str) {
-    const stack_round = new Stack(); // ()
-    const stack_square = new Stack(); // []
-    const stack_braces = new Stack(); // {}
+    const stack = new Stack(); // ()
 
     for (let i = 0; i < str.length; i++) {
         if (str[i] === '(') {
-            stack_round.push(str[i]);
+            stack.push(str[i]);
         }
         if (str[i] === '[') {
-            stack_square.push(str[i]);
+            stack.push(str[i]);
         }
         if (str[i] === '{') {
-            stack_braces.push(str[i]);
+            stack.push(str[i]);
         }
 
         if (str[i] === ')') {
-            if (!stack_round.pop()) {
+            if (stack.pop() !== '(') {
                 return false;
             }
         }
         if (str[i] === ']') {
-            if (!stack_square.pop()) {
+            if (stack.pop() !== '[') {
                 return false;
             }
         }
 
         if (str[i] === '}') {
-            if (!stack_braces.pop()) {
+            if (stack.pop() !== '{') {
                 return false;
             }
         }
@@ -96,7 +94,7 @@ function solve(str) {
 
     }
 
-    return stack_round.size === 0 && stack_square.size === 0 && stack_braces.size === 0;
+    return stack.size === 0;
 
 
 }

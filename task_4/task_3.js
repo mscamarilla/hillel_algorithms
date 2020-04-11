@@ -51,9 +51,7 @@ function unshift(v) {
         queue[head] = v;
         tail++;
     } else {
-        queue[--head] = queue[head];
-        queue[head] = v;
-
+        queue[--head] = v;
     }
 
 }
@@ -91,23 +89,9 @@ function get(i) {
         return null;
     }
 
-    return queue[i] || null;
+    return queue[i + head] || null;
 }
 
-push(10);
-push(20);
-push(30);
-push(40);
-console.log(getSize());
-console.log(get(1e6)); //10
-console.log(queue);
-console.log(back()); //40
-console.log(pop()); //40
-console.log(pop()); //30
-console.log(pop()); //20
-console.log(pop()); //10
-console.log(pop()); //null
-clear();
 
 unshift(5);
 unshift(10);
