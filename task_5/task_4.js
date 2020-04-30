@@ -5,6 +5,8 @@
 
 
 // dp[k] = dp[k-1] + dp[k-3] + dp[k-5]
+let temp = {};
+
 function platforms(k) {
     if (k === 1 || k === 2){
         return 1;
@@ -19,9 +21,24 @@ function platforms(k) {
         return 6;
     }
 
-    return platforms(k - 1) + platforms(k - 3) + platforms(k - 5);
+    if (!temp[k - 1]) {
+        let res = platforms(k - 1);
+        temp[k - 1] = res;
+    }
+
+    if (!temp[k - 3]) {
+        let res = platforms(k - 3);
+        temp[k - 3] = res;
+    }
+
+    if (!temp[k - 5]) {
+        let res = platforms(k - 5);
+        temp[k - 5] = res;
+    }
+
+    return temp[k - 1] + temp[k - 3] + temp[k - 5];
 
 
 }
 
-console.log(platforms(20));
+console.log(platforms(40));

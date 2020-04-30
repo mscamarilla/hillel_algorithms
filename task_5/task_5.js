@@ -14,9 +14,10 @@ function grains(field) {
 //во вспомогательный массив копируем исходный. Так создадутся стенки
     for (let i = 0; i < n; i++) {
         for (let j = 0; j < m; j++) {
-            temp_arr[i + 1][j + 1] = field[i][j]
+            temp_arr[i + 1][j + 1] = field[i][j] + Math.max(temp_arr[i][j+1], temp_arr[i+1][j])
         }
     }
+    console.log(temp_arr);
 
     let result = '';
     let i = n;
