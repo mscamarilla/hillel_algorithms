@@ -4,56 +4,49 @@
 function grains(field) {
     const n = field.length; // строки
     const m = field[0].length; // столбцы
+    field.reverse(); //реверс
 
     let temp_arr = [];
 //создаем вспомогательный массив и заполняем его -1
     for (let i = 0; i <= n + 1; i++) {
         temp_arr.push(Array(m + 2).fill(-1));
     }
+    temp_arr[0][1] = 0;//реверс
 
-//во вспомогательный массив копируем исходный. Так создадутся стенки
+    //во вспомогательный массив копируем исходный. Так создадутся стенки
     for (let i = 0; i < n; i++) {
         for (let j = 0; j < m; j++) {
-            temp_arr[i + 1][j + 1] = field[i][j] + Math.max(temp_arr[i][j+1], temp_arr[i+1][j])
+            temp_arr[i + 1][j + 1] = field[i][j] + Math.max(temp_arr[i][j + 1], temp_arr[i + 1][j]);
         }
     }
-    console.log(temp_arr);
-
+    console.log(temp_arr)
     let result = '';
-    let i = n;
+    let i = 1;
     let j = 1;
-
-    while (i >= 1 && j <= m) {
+    while (i <= n && j <= m) {
         //если значение сверху больше (или равно), чем справа, двигаемся вверх
-        if (temp_arr[i - 1][j] >= temp_arr[i][j + 1]) {
-            if (temp_arr[i - 1][j] !== -1) {
+        if (temp_arr[i + 1][j] >= temp_arr[i][j + 1]) {
+            if (temp_arr[i + 1][j] !== -1) {
                 result += 'F';
             }
-            i--; // и отнимаем i, потому что мы поднимаемся снизу
+            i++;
 
         } else {
             //если значение справа больше, чем вверху, двигаемся вправо
             if (temp_arr[i][j + 1] !== -1) {
                 result += 'R';
             }
-            j++;// и плюсуем j, потому что двигаемся слева направо
+            j++;
 
         }
-
-
     }
-    return result;
+    return result.split("").reverse().join("");
 }
 
 let field = [
-    [23, 4, 7, 8, 94, 23, 5, 6],
-    [2, 9, 7, 56, 83, 5, 44, 2],
-    [1, 2, 3, 4, 5, 6, 7, 8],
-    [8, 7, 6, 5, 4, 32, 2, 1],
-    [90, 87, 3, 5, 4, 3, 2, 5],
-    [28, 75, 60, 94, 33, 3, 2, 7],
-    [76, 92000, 402, 28, 3, 2, 11, 200]
-]; //RRFRRFFRFRFFR
+    [3, 2, 4],
+    [1, 5, 1],
+]; //RFR
 
 
 console.log(grains(field));
