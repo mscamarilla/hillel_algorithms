@@ -1,45 +1,47 @@
 // дополнительное задание. Бинарный поиск
 // https://www.e-olymp.com/ru/problems/7329 2 балла
 
-//считает, можно ли из части досок нарезать требуемое количество
-function cut(Mid, n, arr) {
-    if (Mid === 0) {
+// n - количество доступных досок,
+// m - количество досок, из скольких должен состоять мостик,
+// l - длины имеющихся в наличии досок.
+
+const n = 4;
+const m = 4;
+const l = [5, 5, 3, 6];
+
+function cut(mid) {
+    if (mid === 0) {
         return 0;
     }
 
     let res = 0;
 
-    for (let i = 0; i < n; i++) {
-
-        res += arr[i] / Mid;
-    }
+    l.forEach(function (item) {
+        res += item / mid;
+    });
 
     return res;
 }
 
-function binary_search(n, m, arr) {
-    // n - количество доступных досок
-    // m - количество досок, из скольких должен состоять мостик
-    // arr - длины всех имеющихся досок
-    //массив сортируется для бинарного поиска
-    arr.sort((a, b) => a - b);
 
-    let l = 0;
-    let r = n;
+function bridge() {
+    let left = 0;
+    let right = n;
 
-    while (r - l > 1) {
-        let Mid = Math.floor((l + r) / 2);
+    while (right - left > 1) {
 
-        //Если из обрабатываемой части можно нарезать необходимое количество досок, то
-        //передвигаем l. Иначе двигаем r.
-        if (cut(Mid, n, arr) >= m) {
-            l = Mid;
+        let mid = Math.floor((left + right) / 2);
+
+        if (cut(mid) >= m) {
+            left = mid;
         } else {
-            r = Mid;
+            right = mid;
         }
+
     }
-    return l;
+
+    return left;
 
 }
 
-console.log(binary_search(4, 4, [5, 5, 3, 6, 2]));
+console.log(bridge());
