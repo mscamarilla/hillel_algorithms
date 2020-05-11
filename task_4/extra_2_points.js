@@ -9,22 +9,11 @@ const n = 4;
 const m = 4;
 const l = [5, 5, 3, 6];
 
-function cut(mid) {
-    if (mid === 0) {
-        return 0;
-    }
+// мы пперебираем вообще все существующие значения. от 1 до дофига.
+// к примеру, можно напилить 4 доски по 1 метру. пробуем напилить 4 доски по 2, по 3, по 4 метра.
+// как только это станет невозможно, поиск прекращается.
 
-    let res = 0;
-
-    l.forEach(function (item) {
-        res += item / mid;
-    });
-
-    return res;
-}
-
-
-function bridge() {
+function search() {
     let left = 0;
     let right = n;
 
@@ -44,4 +33,21 @@ function bridge() {
 
 }
 
-console.log(bridge());
+// тут пилим. сюда приходят все значения от 1 до тех пор, пока проходит поиск.
+// функция берет каждую доску и пилит ее на искомую длину.
+// если суммарно набирается нужное количество досок, пооиск продолжается
+function cut(mid) {
+    if (mid === 0) {
+        return 0;
+    }
+
+    let res = 0;
+
+    l.forEach(function (item) {
+        res += item / mid;
+    });
+
+    return res;
+}
+
+console.log(search());
