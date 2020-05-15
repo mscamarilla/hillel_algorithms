@@ -21,8 +21,8 @@ function backpack(bag, bars) {
 
     //наибольший вес, который можно унести, но не больше объема рюкзака
     let result = 0;
-    for (let i = 0; i < bag; i++) {
-        if (arr[i] !== 0) {
+    for (let i = 0; i <= bag; i++) {
+        if (arr[i] && arr[i] !== 0) {
             result = i;
         }
     }
@@ -30,4 +30,4 @@ function backpack(bag, bars) {
     return result;
 }
 
-console.log(backpack(20, [5, 7, 12, 18]));
+console.log(backpack(29, [5, 7, 12, 18]));
