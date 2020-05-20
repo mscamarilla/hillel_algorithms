@@ -37,7 +37,7 @@ function solve(n, m, field) {
 
     dp[n + 1][1] = -1;
 
-    let result = '';
+    let result = [];
     let i = 1;
     let j = m;
 
@@ -45,7 +45,7 @@ function solve(n, m, field) {
         //если значение снизу больше (или равно), чем справа, двигаемся вниз (в ответе это вверх)
         if (dp[i + 1][j] >= dp[i][j - 1]) {
             if (dp[i + 1][j] !== -1) {
-                result += 'F';
+                result.unshift('F');
             }
             i++;
 
@@ -53,14 +53,14 @@ function solve(n, m, field) {
 
             //если значение слева больше, чем внизу, двигаемся влево(в ответе это вправо)
             if (dp[i][j - 1] !== -1) {
-                result += 'R';
+                result.unshift('R');
             }
             j--;
 
         }
     }
 
-    return result;
+    return result.join('');
 }
 
 
