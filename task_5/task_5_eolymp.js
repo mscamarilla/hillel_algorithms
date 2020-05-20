@@ -70,7 +70,7 @@ function main() {
     var m = parseInt(first_line[1]);
     var arr = [];
     for (let i = 0; i < n; i++) {
-        arr.push(readLine().split(' '));
+        arr.push(readLine().split(' ').map(v=>+v));
     }
 
     var result = solve(n, m, arr);
