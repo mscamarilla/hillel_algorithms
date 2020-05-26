@@ -72,8 +72,8 @@ function dfs(u) {
 
         // если в вершине уже были, но она не прямой предок
         if (color[to] === 1 && used[to] !== u) {
-            console.log(parent);
-            console.log(used);
+
+            //в массиве предков может быть не только цикл, но и все предыдущие, поэтому обрезаем его по циклу
             let cycle = parent.slice(to);
             cycle.sort((a, b) => a - b);
             if (cycle[0] < min) {
