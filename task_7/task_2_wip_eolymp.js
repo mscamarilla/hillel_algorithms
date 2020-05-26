@@ -67,15 +67,20 @@ function dfs(u) {
 
         // если в вершине уже были, но она не прямой предок
         if (color[to] === 1 && used[to] !== u) {
-            for(let b = parent.length; b > 0, parent[b] !== to; b--){
-                //console.log(parent[b])
+            //по пройденному пути идем назад до текущей вершины
+            for(let b = parent.length-1; b > 0, parent[b] !== to; b--){
+                //сравниваем последнюю вершину цикла
                 if(to < min){
                     min = to;
                 }
-
+                // и все предыдущие сравниваем с минимумом
                 if(parent[b] < min){
                     min = parent[b];
                 }
+
+                // весь цикл помечаем как окончательно пройденный
+                color[parent[b]] = 2;
+                color[to] = 2;
             }
 
             is_cycle = 'Yes';
