@@ -53,16 +53,12 @@ function loops(ribs) {
 
 function dfs(u) {
     color[u] = 1;
+    parent.push(u); // пройденный путь
 
     for (let i = 0; i < g[u].length; i++) {
         let to = g[u][i];
 
         used[u] = to; // ребро, по которому идем
-
-        //если по этому ребру еще не ходили
-        if (used[to] !== u) {
-            parent[to] = u;
-        }
 
         //если в этой вершине еще не были
         if (color[to] === 0) {
@@ -71,12 +67,15 @@ function dfs(u) {
 
         // если в вершине уже были, но она не прямой предок
         if (color[to] === 1 && used[to] !== u) {
+            for(let b = parent.length; b > 0, parent[b] !== to; b--){
+                //console.log(parent[b])
+                if(to < min){
+                    min = to;
+                }
 
-            //в массиве предков может быть не только цикл, но и все предыдущие, поэтому обрезаем его по циклу
-            let cycle = parent.slice(to);
-            cycle.sort((a, b) => a - b);
-            if (cycle[0] < min) {
-                min = cycle[0];
+                if(parent[b] < min){
+                    min = parent[b];
+                }
             }
 
             is_cycle = 'Yes';
