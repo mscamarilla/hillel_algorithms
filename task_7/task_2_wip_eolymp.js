@@ -1,4 +1,28 @@
 // 2. https://www.e-olymp.com/ru/problems/2022 - поиск цикла (4 бала)
+class Stack {
+    constructor() {
+        this.arr = Array(100000+1);
+        this.head = -1;
+    }
+
+    push(value) {
+        this.arr[++this.head] = value;
+        return value;
+    }
+
+    pop() {
+        return this.arr[this.head--];
+    }
+
+    clear() {
+        this.head = -1;
+    }
+
+    getSize() {
+        return this.head + 1;
+    }
+}
+
 process.stdin.resume();
 process.stdin.setEncoding('ascii');
 
@@ -10,9 +34,9 @@ var color = [];
 let used = [];
 var n = '';
 var m = '';
-let parent = [];
+let parent = new Stack();
 let is_cycle = 'No';
-let min = 1e9;
+let min = 100000+1;
 
 
 
@@ -68,20 +92,16 @@ function dfs(u) {
         // если в вершине уже были, но она не прямой предок
         if (color[to] === 1 && used[to] !== u) {
             //по пройденному пути идем назад до текущей вершины
-            for(let b = parent.length-1; b > 0, parent[b] !== to; b--){
-                //сравниваем последнюю вершину цикла
-                if(to < min){
-                    min = to;
+            for(let b = parent.getSize(), curr = 0; b > 0, curr !== to; b--){
+                curr = parent.pop();
+                //кажду. предыдущую вершину сравниваем с минимумом
+                if(curr < min){
+                    min = curr;
                 }
-                // и все предыдущие сравниваем с минимумом
-                if(parent[b] < min){
-                    min = parent[b];
-                }
-
                 // весь цикл помечаем как окончательно пройденный
-                color[parent[b]] = 2;
-                color[to] = 2;
-            }
+                    color[curr] = 2;
+                    color[to] = 2;
+                }
 
             is_cycle = 'Yes';
             is_cycle += '\n' + min;
@@ -106,9 +126,7 @@ function main() {
     g = Array(n+1);
     color = Array(n + 1).fill(0);
     used = Array(m + 1).fill(0);
-
-
-
     var result = loops(arr);
     console.log(result);
 }
+
