@@ -32,9 +32,8 @@ function readLine() {
 
 function loops(ribs) {
     //обход графа
-    for (let i = 0; i < m; i++) {
-        g[ribs[i][0]] = [];
-        g[ribs[i][1]] = [];
+    for (let i = 0; i < n + 1; i++) {
+        g[i] = [];
     }
 
     for (let i = 0; i < m; i++) {
@@ -100,7 +99,7 @@ function main() {
     for (let i = 0; i < m; i++) {
         arr.push(readLine().split(' ').map(v=>+v));
     }
-    g = Array(n+1).fill([]);
+    g = Array(n+1);
     color = Array(n + 1).fill(0);
     used = Array(m + 1).fill(0);
 
