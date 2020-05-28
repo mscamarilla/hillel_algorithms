@@ -1,7 +1,7 @@
 // 2. https://www.e-olymp.com/ru/problems/2022 - поиск цикла (4 бала)
 class Stack {
     constructor() {
-        this.arr = Array(100000+1);
+        this.arr = Array(100000 + 1);
         this.head = -1;
     }
 
@@ -36,9 +36,7 @@ var n = '';
 var m = '';
 let parent = new Stack();
 let is_cycle = 'No';
-let min = 100000+1;
-
-
+let min = 100000 + 1;
 
 process.stdin.on('data', function (data) {
     input_stdin += data;
@@ -55,6 +53,11 @@ function readLine() {
 
 
 function loops(ribs) {
+
+    if (m === 0) {
+        return is_cycle;
+    }
+
     //обход графа
     for (let i = 0; i < n + 1; i++) {
         g[i] = [];
@@ -81,7 +84,6 @@ function dfs(u) {
 
     for (let i = 0; i < g[u].length; i++) {
         let to = g[u][i];
-
         used[u] = to; // ребро, по которому идем
 
         //если в этой вершине еще не были
@@ -91,26 +93,28 @@ function dfs(u) {
 
         // если в вершине уже были, но она не прямой предок
         if (color[to] === 1 && used[to] !== u) {
+
             //по пройденному пути идем назад до текущей вершины
-            for(let b = parent.getSize(), curr = 0; b > 0, curr !== to; b--){
+            let curr = 0;
+
+            while (parent.getSize() > 0 && curr !== to) {
                 curr = parent.pop();
-                //кажду. предыдущую вершину сравниваем с минимумом
-                if(curr < min){
+
+
+                //каждую предыдущую вершину сравниваем с минимумом
+                if (curr < min) {
                     min = curr;
                 }
                 // весь цикл помечаем как окончательно пройденный
-                    color[curr] = 2;
-                    color[to] = 2;
-                }
+                color[curr] = 2;
+            }
 
             is_cycle = 'Yes';
             is_cycle += '\n' + min;
 
-            break;
         }
 
     }
-
     color[u] = 2;
 }
 
@@ -121,12 +125,11 @@ function main() {
     m = parseInt(first_line[1]);
     var arr = [];
     for (let i = 0; i < m; i++) {
-        arr.push(readLine().split(' ').map(v=>+v));
+        arr.push(readLine().split(' ').map(v => +v));
     }
-    g = Array(n+1);
+    g = Array(n + 1);
     color = Array(n + 1).fill(0);
     used = Array(m + 1).fill(0);
     var result = loops(arr);
     console.log(result);
 }
-
