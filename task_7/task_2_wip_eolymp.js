@@ -6,6 +6,8 @@ class Stack {
     }
 
     push(value) {
+        /*this.arr[++this.head] = [];
+        this.arr[++this.head].push(value);*/
         this.arr[++this.head] = value;
         return value;
     }
@@ -34,7 +36,8 @@ var color = [];
 let used = [];
 var n = '';
 var m = '';
-let parent = new Stack();
+let parent = [];
+let v = new Stack();
 let is_cycle = 'No';
 let min = 100000 + 1;
 
@@ -53,7 +56,6 @@ function readLine() {
 
 
 function loops(ribs) {
-
     if (m === 0) {
         return is_cycle;
     }
@@ -63,59 +65,69 @@ function loops(ribs) {
         g[i] = [];
     }
 
+    //массив дочерних вершин
     for (let i = 0; i < m; i++) {
         g[ribs[i][0]].push(ribs[i][1]);
         g[ribs[i][1]].push(ribs[i][0]);
     }
-
+    // стартовые вершины
     for (let i = 1; i <= n; i++) {
         if (color[i] === 0) {
-            dfs(i);
+            v.push([i,0]);
+            dfs();
         }
     }
+
 
     return is_cycle;
 
 }
 
-function dfs(u) {
-    color[u] = 1;
-    parent.push(u); // пройденный путь
+function dfs() {
 
-    for (let i = 0; i < g[u].length; i++) {
-        let to = g[u][i];
-        used[u] = to; // ребро, по которому идем
+    while (v.getSize() !== 0) {
+        let step = v.pop();
+        let u = step[0]; // номер вершины
+        let from = step[1]; //откуда в вершину пришли
+        color[u] = 1;
+        parent.push(u); // пройденный путь
 
-        //если в этой вершине еще не были
-        if (color[to] === 0) {
-            dfs(to);
-        }
+        //дочерние вершины
+        for (let i = 0; i < g[u].length; i++) {
+            let to = g[u][i];
 
-        // если в вершине уже были, но она не прямой предок
-        if (color[to] === 1 && used[to] !== u) {
-
-            //по пройденному пути идем назад до текущей вершины
-            let curr = 0;
-
-            while (parent.getSize() > 0 && curr !== to) {
-                curr = parent.pop();
-
-
-                //каждую предыдущую вершину сравниваем с минимумом
-                if (curr < min) {
-                    min = curr;
-                }
-                // весь цикл помечаем как окончательно пройденный
-                color[curr] = 2;
+            //если в этой вершине еще не были и она не та, из которой пришли
+            if (color[to] === 0 && to !== from) {
+                v.push([to, u]);
             }
 
-            is_cycle = 'Yes';
-            is_cycle += '\n' + min;
+            // если в вершине уже были, но она не прямой предок
+            if (color[to] === 1 && to !== from) {
+                //по пройденному пути идем назад до текущей вершины
+                let curr = 0;
+
+                while (parent.length > 0 && curr !== to) {
+
+                    curr = parent.pop();
+                    //каждую предыдущую вершину сравниваем с минимумом
+                    if (curr < min) {
+                        min = curr;
+                    }
+                    // весь цикл помечаем как окончательно пройденный
+                    color[curr] = 2;
+                    //color[to] = 2;
+                }
+
+                is_cycle = 'Yes';
+                is_cycle += '\n' + min;
+            }
 
         }
 
+        //color[u] = 2;
+
     }
-    color[u] = 2;
+
 }
 
 
