@@ -1,4 +1,5 @@
 // 2. https://www.e-olymp.com/ru/problems/2022 - поиск цикла (4 бала)
+
 class Stack {
     constructor() {
         this.arr = Array(100000 + 1);
@@ -6,8 +7,6 @@ class Stack {
     }
 
     push(value) {
-        /*this.arr[++this.head] = [];
-        this.arr[++this.head].push(value);*/
         this.arr[++this.head] = value;
         return value;
     }
@@ -33,7 +32,6 @@ var input_stdin_array = "";
 var input_currentline = 0;
 var g = [];
 var color = [];
-let used = [];
 var n = '';
 var m = '';
 let parent = [];
@@ -56,12 +54,8 @@ function readLine() {
 
 
 function loops(ribs) {
-    if (m === 0) {
-        return is_cycle;
-    }
-
     //обход графа
-    for (let i = 0; i < n + 1; i++) {
+    for (let i = 0; i <= n + 1; i++) {
         g[i] = [];
     }
 
@@ -70,10 +64,10 @@ function loops(ribs) {
         g[ribs[i][0]].push(ribs[i][1]);
         g[ribs[i][1]].push(ribs[i][0]);
     }
-    // стартовые вершины
+    //стартовые вершины
     for (let i = 1; i <= n; i++) {
         if (color[i] === 0) {
-            v.push([i,0]); //номер вершины и номер родителя. для стартовых он всегда 0
+            v.push([i, 0]); //номер вершины и номер родителя. для стартовых он всегда 0
             dfs();
         }
     }
@@ -115,7 +109,6 @@ function dfs() {
                     }
                     // весь цикл помечаем как окончательно пройденный
                     color[curr] = 2;
-                    //color[to] = 2;
                 }
 
                 is_cycle = 'Yes';
@@ -124,7 +117,6 @@ function dfs() {
 
         }
 
-        //color[u] = 2;
 
     }
 
@@ -141,7 +133,6 @@ function main() {
     }
     g = Array(n + 1);
     color = Array(n + 1).fill(0);
-    used = Array(m + 1).fill(0);
     var result = loops(arr);
     console.log(result);
 }
