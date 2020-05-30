@@ -1,5 +1,4 @@
 // 2. https://www.e-olymp.com/ru/problems/2022 - поиск цикла (4 бала)
-
 class Stack {
     constructor() {
         this.arr = Array(100000 + 1);
@@ -24,33 +23,14 @@ class Stack {
     }
 }
 
-process.stdin.resume();
-process.stdin.setEncoding('ascii');
-
-var input_stdin = "";
-var input_stdin_array = "";
-var input_currentline = 0;
-var g = [];
-var color = [];
-var n = '';
-var m = '';
+let n = 6;
+let m = 6;
+let g = Array(n + 1).fill([]);
+let color = Array(n + 1).fill(0);
 let parent = [];
 let v = new Stack();
 let is_cycle = 'No';
-let min = 100000 + 1;
-
-process.stdin.on('data', function (data) {
-    input_stdin += data;
-});
-
-process.stdin.on('end', function () {
-    input_stdin_array = input_stdin.split("\n");
-    main();
-});
-
-function readLine() {
-    return input_stdin_array[input_currentline++];
-}
+let min = 1e9;
 
 function loops(ribs) {
     //обход графа
@@ -121,16 +101,12 @@ function dfs() {
 
 }
 
-function main() {
-    var first_line = readLine().split(' ');
-    n = parseInt(first_line[0]);
-    m = parseInt(first_line[1]);
-    var arr = [];
-    for (let i = 0; i < m; i++) {
-        arr.push(readLine().split(' ').map(v => +v));
-    }
-    g = Array(n + 1);
-    color = Array(n + 1).fill(0);
-    var result = loops(arr);
-    console.log(result);
-}
+let ribs = [
+    [1, 2],
+    [2, 3],
+    [3, 4],
+    [4, 5],
+    [5, 2],
+    [4, 6],
+];
+console.log(loops(ribs));
