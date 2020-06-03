@@ -1,3 +1,5 @@
+//2. https://www.hackerrank.com/challenges/primsmstsub/problem - MST (2 бала) решаем алгоритмом Прима
+
 'use strict';
 
 const fs = require('fs');
@@ -7,6 +9,8 @@ process.stdin.setEncoding('utf-8');
 
 let inputString = '';
 let currentLine = 0;
+let g = [];
+let used = [];
 
 process.stdin.on('data', inputStdin => {
     inputString += inputStdin;
@@ -99,36 +103,19 @@ class PriorityQueue {
     }
 }
 
-// Complete the shortestReach function below.
-function shortestReach(n, m, edges, s) {
 
-    let d = []; // расстояния (индекс - расстояние от старта до вершины с этим индексом)
-    for (let i = 0; i <= n; i++) {
-        d[i] = 10 ** 6; // изначально все расстояния большие
-    }
-
-    d[s] = 0; // а до стартовой вершины расстояние 0
-
+// Complete the prims function below.
+function prims(m, edges, start) {
     let q = new PriorityQueue();
-
-    let g = new Map();
 
     //массив дочерних вершин. граф неориентированный, добавляем в обе стороны
     for (let i = 0; i < m; i++) {
-        //ребро в одну сторону
-        let vertex_first = edges[i][0];
-        let v_edges_first = g.has(vertex_first) ? g.get(vertex_first) : [];
-        v_edges_first.push([edges[i][1], edges[i][2]]);
-        g.set(vertex_first, v_edges_first);
-
-        //ребро в другую сторону
-        let vertex_second = edges[i][1];
-        let v_edges_second = g.has(vertex_second) ? g.get(vertex_second) : [];
-        v_edges_second.push([edges[i][0], edges[i][2]]);
-        g.set(vertex_second, v_edges_second);
+        g[edges[i][0]].push([edges[i][1], edges[i][2]]);
+        g[edges[i][1]].push([edges[i][0], edges[i][2]]);
     }
 
-    q.enqueue(s, s, 0);     //идем в старт из старта за стоимость 0.
+    let mst_weight = 0;     //Текущий вес остова.
+    q.enqueue(start, start, 0);     //идем в старт из старта за стоимость 0.
 
     while (!q.isEmpty()) {
         let c = q.front();
@@ -137,57 +124,50 @@ function shortestReach(n, m, edges, s) {
         let dst = c.priority;
         let v = c.to;
 
-        //для каждого потомка вершины улучшаем расстояние
-        let g_v = g.get(v);
-        for (let j = 0; j < g_v.length; j++) {
-            let to = g_v[j][0]; //куда идем
-            let len = g_v[j][1]; // стоимость хода
-            let n_dst = dst + len;
-            if (n_dst < d[to]) {
-                d[to] = n_dst;
-                q.enqueue(v, to, d[to])
+        if (used[v]) {      //вершина уже добавлена в остов
+            continue;
+        }
+
+        used[v] = true;
+        mst_weight += dst;
+
+        for (let j = 0; j < g[v].length; j++) { //дочерние вершины, в которые можно попасть
+            if (!used[g[v][j][0]]) { // если в дочерней еще не были
+                q.enqueue(v, g[v][j][0], g[v][j][1]); // то кладем в очередь новую вершину и вес ребра к ней
             }
         }
-    }
-    let result = [];
-    for (let i = 1; i <= n; i++) {
-        if (i !== s) {
-            if (d[i] === 10 ** 6) {
-                result.push(-1);
-            } else {
-                result.push(d[i]);
-            }
-        }
+
     }
 
-    return result;
+    return mst_weight;
+
 
 }
 
 function main() {
     const ws = fs.createWriteStream(process.env.OUTPUT_PATH);
 
-    const t = parseInt(readLine(), 10);
+    const nm = readLine().split(' ');
 
-    for (let tItr = 0; tItr < t; tItr++) {
-        const nm = readLine().split(' ');
+    const n = parseInt(nm[0], 10);
 
-        const n = parseInt(nm[0], 10);
+    const m = parseInt(nm[1], 10);
 
-        const m = parseInt(nm[1], 10);
+    let edges = Array(m);
 
-        let edges = Array(m);
-
-        for (let i = 0; i < m; i++) {
-            edges[i] = readLine().split(' ').map(edgesTemp => parseInt(edgesTemp, 10));
-        }
-
-        const s = parseInt(readLine(), 10);
-
-        let result = shortestReach(n,m, edges, s);
-
-        ws.write(result.join(" ") + "\n");
+    for (let i = 0; i < m; i++) {
+        edges[i] = readLine().split(' ').map(edgesTemp => parseInt(edgesTemp, 10));
     }
+
+    const start = parseInt(readLine(), 10);
+
+    for (let i = 0; i <= n; i++) {
+        g[i] = [];
+    }
+
+    let result = prims(m, edges, start);
+
+    ws.write(result + "\n");
 
     ws.end();
 }
