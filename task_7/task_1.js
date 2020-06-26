@@ -2,7 +2,7 @@
 
 let n = 7;
 let m = 1;
-let g = Array(n+1).fill([]);
+let g = Array(n+1);
 let used = [];
 
 function roads(ribs) {
@@ -17,13 +17,13 @@ function roads(ribs) {
         g[ribs[i][1]].push(ribs[i][0]);
     }
 
-    let result = components() - 1;
+    let result = countComponentsQuantity() - 1;
 
     return result;
 }
 
 //подсчет компонент
-function components() {
+function countComponentsQuantity() {
     let c = 0;
     for (let i = 1; i <= n; i++) {
         if (!used[i]) {

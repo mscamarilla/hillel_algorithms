@@ -39,12 +39,12 @@ function Graph(ribs) {
     }
 
 
-    let result = components() - 1;
+    let result = countComponentsQuantity() - 1;
 
     return result;
 }
 //подсчет компонент
-function components() {
+function countComponentsQuantity() {
     let c = 0;
     for (let i = 1; i <= n; i++) {
         if (!used[i]) {
@@ -78,7 +78,7 @@ function main() {
     for (let i = 0; i < m; i++) {
         arr.push(readLine().split(' ').map(v=>+v));
     }
-    g = Array(n+1).fill([]);
+    g = Array(n+1);
 
 
     var result = Graph(arr);
