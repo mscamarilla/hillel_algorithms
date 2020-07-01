@@ -20,22 +20,31 @@ let n = 5;
 let goods = [4, 3, 1, 5, 2];
 let p = 5;
 
+function findIndexes(right, current) {
+    let l = 0;
+    let r = right;
+
+    while (l < r) {
+        let m = (l + r) >> 1;
+
+        if (goods[m] <= current) {
+            l = m + 1;
+        } else {
+            r = m - 1;
+        }
+    }
+    return goods[l] > current ? l - 1 : l;
+
+}
+
 function buy(n, goods, p) {
-    let used = Array(...goods);
     let res = 0;
 
-    for (let i = 0; i < goods.length; i++) {
-        let sum = 0;
-        used[i] = 0;
+    goods.sort((a, b) => a - b);
 
-        for (let j = 0; j < goods.length; j++) {
-            if (used[j] !== 0) {
-                sum = goods[i] + goods[j];
-                if (sum <= p) {
-                    res++;
-                }
-            }
-        }
+    for (let i = 1; i < n; i++) {
+        let current = p - goods[i];
+        res += findIndexes(i - 1, current) + 1;
     }
 
     return res;
