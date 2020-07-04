@@ -51,8 +51,9 @@ function solve(s, t) {
     let pi = prefix_function(a);
 
     for (let i = 0; i <= a.length; i++) {
-        if(pi[i] === n){
-            res = i-2*n+1;
+        if (pi[i] === n) {
+            res = i - 2 * n + 1;
+            break;
         }
     }
 
@@ -60,10 +61,9 @@ function solve(s, t) {
 }
 
 
-
 function main() {
     var t = readLine();
     var s = readLine();
-    let result = solve(s,t);
+    let result = solve(s, t);
     console.log(result);
 }

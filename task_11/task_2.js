@@ -30,9 +30,10 @@ function solve(s, t) {
 
     let pi = prefix_function(a);
 
-    for (let i = 0; i <= m+n; i++) {
-        if(pi[i] === n){
-            res = i-2*n+1;
+    for (let i = 0; i <= m + n; i++) {
+        if (pi[i] === n) {
+            res = i - 2 * n + 1;
+            break;
         }
     }
 
