@@ -14,11 +14,11 @@ weight - вес (1-100)
 функция getBanner() - должна вернуть индекс баннера
 
 */
+let dataArray = [];
 
-function getBanner(n, data) {
-
+function preprocess (n, data) {
+    
     let range = 1;
-    let dataArray = [];
 
     //Общий рэндж баннеров будет сумма их весов
     //Каждый баннер получает рендж равный своему весу по порядку:
@@ -37,17 +37,22 @@ function getBanner(n, data) {
 
     }
 
+}
+function getBanner() {
+
+    
     //Случайное число генерируется в диапазоне от 1 до суммы всех весов (+n для того, чтоб диапазоны не пересекались)
     //тот элемент массива, который содержит в себе случайное число в диапазоне min<k<max и есть искомый баннер, выпавший с соблюдением вероятности
     //range-1 потому, что из-за цикла выше, диапазон будет на 1 больше, чем нужно в последней итерации
     let number = Math.floor(1 + Math.random() * (range-1));
     //console.log(number);
 
-    return binarySearch(dataArray, number);
+    return binarySearchnumber(n);
 }
 
-function binarySearch(arr, k) {
+function binarySearch(k) {
 
+    let arr = dataArray;
     let l = 0;
     let r = arr.length - 1;
     let res = 0;
@@ -75,4 +80,5 @@ function binarySearch(arr, k) {
 
 let n = 3;
 let data = [10, 20, 40];
-console.log(getBanner(n, data));
+preprocess(n, data);
+console.log(getBanner());
