@@ -17,7 +17,7 @@ weight - вес (1-100)
 let dataArray = [];
 let range = 1;
 
-function preprocess (n, data) {
+function preprocess(n, data) {
 
     //Общий рэндж баннеров будет сумма их весов
     //Каждый баннер получает рендж равный своему весу по порядку:
@@ -30,20 +30,21 @@ function preprocess (n, data) {
         banner.max = range + data[i];
         banner.weight = data[i];
 
-        range += data[i]+1;
+        range += data[i] + 1;
 
         dataArray[i] = banner;
 
     }
 
 }
+
 function getBanner() {
 
-    
+
     //Случайное число генерируется в диапазоне от 1 до суммы всех весов (+n для того, чтоб диапазоны не пересекались)
     //тот элемент массива, который содержит в себе случайное число в диапазоне min<k<max и есть искомый баннер, выпавший с соблюдением вероятности
     //range-1 потому, что из-за цикла выше, диапазон будет на 1 больше, чем нужно в последней итерации
-    let number = Math.floor(1 + Math.random() * (range-1));
+    let number = Math.floor(1 + Math.random() * (range - 1));
     //console.log(number);
 
     return binarySearch(number);
