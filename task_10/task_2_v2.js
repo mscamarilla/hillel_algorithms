@@ -25,7 +25,7 @@ function build() {
 
 //обновление данных
 function update(idx, val) {
-    let blockNumber = idx / blockSize;
+    let blockNumber = Math.floor(idx / blockSize);
     block[blockNumber] += val - arr[idx];
     arr[idx] = val;
 }
