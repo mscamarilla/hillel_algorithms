@@ -25,8 +25,6 @@ function getBanner(n, data) {
     //если баннеры [60, 60, 40], то их вес будет [1-61, 62-122, 123-163]
     for (let i = 0; i < n; i++) {
 
-        dataArray[i] = {};
-
         let banner = {};
         banner.id = i + 1;
         banner.min = range;
