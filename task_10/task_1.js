@@ -15,10 +15,9 @@ weight - вес (1-100)
 
 */
 let dataArray = [];
+let range = 1;
 
 function preprocess (n, data) {
-    
-    let range = 1;
 
     //Общий рэндж баннеров будет сумма их весов
     //Каждый баннер получает рендж равный своему весу по порядку:
@@ -47,7 +46,7 @@ function getBanner() {
     let number = Math.floor(1 + Math.random() * (range-1));
     //console.log(number);
 
-    return binarySearchnumber(n);
+    return binarySearch(number);
 }
 
 function binarySearch(k) {
